@@ -1,45 +1,107 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
+import {
+  House,
+  BookOpenText,
+  ShoppingBag,
+  Bell,
+  User,
+} from 'lucide-react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Link } from 'expo-router';
+import { commonStyles, typography } from '../styles/common';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { WebNavBar } from '../../components/layout/WebNavBar';
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { Platform } from 'react-native';
+import { colors } from '../../styles/index';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+function Header() {
+  const insets = useSafeAreaInsets();
+  const styles = commonStyles(insets);
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+    <View style={styles.header}>
+      <View style={styles.logoContainer}>
+        <View style={styles.logo}>
+          <Image
+            source={require('../../assets/images/steak/steak_logo.png')}
+            style={styles.logoImage}
+          />
+        </View>
+        <Text style={styles.restaurantName}>肉のマルヤマ</Text>
+      </View>
+      <View style={styles.contactIcons}>
+        <Link href="/(pages)/contact" asChild>
+          <TouchableOpacity style={styles.iconButton}>
+            <Text style={styles.contactText}>予約</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>
+    </View>
+  );
+}
+
+export default function TabLayout() {
+  const insets = useSafeAreaInsets();
+  const styles = commonStyles(insets);
+  const { width } = useWindowSize();
+  const isWeb = Platform.OS === 'web';
+  const isMobile = width < 768;
+
+  return (
+    <View style={styles.container}>
+      {isWeb ? <WebNavBar /> : <Header />}
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: [styles.tabBar, isWeb && { display: 'none' }],
+          tabBarActiveTintColor: colors.secondary,
+          tabBarInactiveTintColor: colors.text.secondary,
+          tabBarLabelStyle: styles.tabBarLabel,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'ホーム',
+            tabBarIcon: ({ color, size }) => (
+              <House size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="menu"
+          options={{
+            title: 'メニュー',
+            tabBarIcon: ({ color, size }) => (
+              <BookOpenText size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="order"
+          options={{
+            title: '注文',
+            tabBarIcon: ({ color, size }) => (
+              <ShoppingBag size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="news"
+          options={{
+            title: 'お知らせ',
+            tabBarIcon: ({ color, size }) => <Bell size={size} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="mypage"
+          options={{
+            title: 'マイページ',
+            tabBarIcon: ({ color, size }) => <User size={size} color={color} />,
+          }}
+        />
+      </Tabs>
+    </View>
   );
 }

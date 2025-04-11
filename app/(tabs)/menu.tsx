@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../../styles/index';
-
 interface MenuItem {
   id: string;
   name: string;
@@ -63,7 +62,7 @@ export default function HomeScreen() {
           colors={['transparent', 'rgba(0,0,0,0.8)']}
           style={styles.heroGradient}
         >
-          <Text style={styles.heroTitle}>極上の和牛ステーキ</Text>
+          <Text style={styles.heroTitle}>最悪の和牛ステーキ</Text>
           <Text style={styles.heroSubtitle}>伝統の技と最高級の素材</Text>
         </LinearGradient>
       </View>
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontFamily: 'NotoSansJP-Bold',
     fontSize: 24,
-    color: colors.primary1,
+    color: colors.primary,
     marginBottom: 16,
   },
   menuCard: {
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
   menuPrice: {
     fontFamily: 'NotoSansJP-Bold',
     fontSize: 16,
-    color: colors.primary1,
+    color: colors.primary,
   },
   infoCard: {
     backgroundColor: '#1A1A1A',
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   button: {
-    backgroundColor: colors.primary1,
+    backgroundColor: '#D4AF37',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
