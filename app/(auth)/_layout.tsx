@@ -23,7 +23,7 @@ import { colors, createCommonStyles, typography } from "../../styles/index";
 function Header() {
   const insets = useSafeAreaInsets();
   const styles = createCommonStyles(insets);
-  const isDark = useColorScheme() === "dark";
+
   return (
     <View style={styles.header}>
       <View style={styles.logoContainer}>

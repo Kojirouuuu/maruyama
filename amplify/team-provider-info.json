@@ -10,6 +10,14 @@
       "StackName": "amplify-maruyama-dev-4d5d0",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:266735802934:stack/amplify-maruyama-dev-4d5d0/edb03620-16b7-11f0-8e81-0a40b30a9d0b",
       "AmplifyAppId": "dgrscg7fil38c"
+    },
+    "categories": {
+      "auth": {
+        "maruyamab95b4a1e": {}
+      },
+      "storage": {
+        "maruyama3s": {}
+      }
     }
   }
 }

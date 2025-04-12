@@ -1,0 +1,14 @@
+{
+  "resourceName": "maruyama3s",
+  "policyUUID": "a6998384",
+  "bucketName": "maruyamaa7855ea67afb4ca78759049a7953fbff",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
