@@ -1,20 +1,37 @@
 import { create } from "zustand";
-import { signUpWithCognito, signInWithCognito, signOutFromCognito } from "@/lib/aws/auth";
+import { 
+  signUpWithCognito, 
+  signInWithCognito, 
+  signOutFromCognito,
+  confirmSignUpWithCognito,
+  resendConfirmationCode,
+} from "@/lib/aws/auth";
 type AuthStore = {
   user: any;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+
+  //　認証機能
   signUp: (email: string, password: string) => Promise<void>
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+
+  // 確認コード入力用
+  emailForVerification: string | null;
+  setEmailForVerification: (email: string) => void;
+  confirmSignUp: (code: string) => Promise<void>;
+  resendConfirmationCode: (email: string) => Promise<void>;
 };
 
-export const useAuthStore = create<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStore>((set, get) => ({
   user: null,
   isAuthenticated: false,
   loading: false,
   error: null,
+  emailForVerification: null,
+
+  setEmailForVerification: (email: string) => set({ emailForVerification: email}),
 
   login: async (email: string, password: string) => {
     set( { loading: true, error: null});
@@ -33,7 +50,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     set({ loading: true, error: null });
     try {
       await signUpWithCognito(email, password);
-      set({ loading: false });
+      set({ emailForVerification: email, loading: false});
     } catch (err: unknown) {
       if (err instanceof Error) {
         set({ error: err.message, loading: false });
@@ -54,4 +71,40 @@ export const useAuthStore = create<AuthStore>((set) => ({
       }
     }
   },
+  confirmSignUp: async (code: string) => {
+    const email = get().emailForVerification;
+    if (!email) {
+      set({ error: "確認用のメールアドレスがありません"});
+      return;
+    }
+    set({ loading: true, error: null });
+    try {
+      await confirmSignUpWithCognito(email, code);
+      set({ loading: false});
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        set({ error: err.message, loading: false});
+      } else {
+        
+      }
+    }
+  },
+  resendConfirmationCode: async () => {
+    const email = get().emailForVerification;
+    if(!email) {
+      set({ error: "確認用のメールアドレスがありません"});
+      return;
+    }
+    set({ loading: true, error: null });
+    try {
+      await resendConfirmationCode(email);
+      set({loading: false})
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        set({ error: err.message, loading: false});
+      } else {
+        
+      }
+    }
+  }
 }));

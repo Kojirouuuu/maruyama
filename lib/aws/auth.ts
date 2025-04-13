@@ -4,6 +4,8 @@ import {
   signOut,
   fetchAuthSession,
   getCurrentUser,
+  confirmSignUp,
+  resendSignUpCode,
 } from "aws-amplify/auth";
 export const signUpWithCognito = async (email: string, password: string) => {
   try {
@@ -12,10 +14,10 @@ export const signUpWithCognito = async (email: string, password: string) => {
       password,
       options: { userAttributes: { email: email } },
     });
+    console.log(userId);
+    console.log(nextStep);
     if (isSignUpComplete) {
       console.log("Sign up successful");
-      console.log(userId);
-      console.log(nextStep);
       return { isSignUpComplete, userId, nextStep };
     }
   } catch (err: unknown) {
@@ -55,5 +57,29 @@ export const signOutFromCognito = async () => {
       throw new Error(error.message);
     }
     throw new Error("An unknown error occurred during sign out");
+  }
+};
+
+export const confirmSignUpWithCognito = async (email: string, code: string) => {
+  try {
+    await confirmSignUp({ username: email, confirmationCode: code });
+    console.log("Confirmation successful");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+    throw new Error("An unknown error occurred");
+  }
+};
+
+export const resendConfirmationCode = async (email: string) => {
+  try {
+    await resendSignUpCode({ username: email });
+    console.log("Confirmation code resent");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+    throw new Error("An unknown error occurred");
   }
 };

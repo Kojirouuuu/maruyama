@@ -14,8 +14,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "【肉のマルヤマ】メールアドレスの確認をお願いします",
+    "emailVerificationMessage": "お客様の確認コードは {####} です。",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -26,17 +26,27 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "birthdate",
+      "family_name",
+      "middle_name",
+      "gender",
+      "name",
       "email"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "birthdate",
+      "email",
+      "family_name",
+      "middle_name",
+      "gender",
+      "name"
     ],
     "userpoolClientLambdaRole": "maruyab95b4a1e_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "b95b4a1e",
     "resourceName": "maruyamab95b4a1e",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
@@ -59,6 +69,17 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {},
+    "hostedUI": false,
+    "verificationBucketName": "maruyamab95b4a1everificationbucket",
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }

@@ -1,0 +1,128 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+type User @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  email: String!
+  name: String!
+  role: UserRole!
+  gender: Gender!
+  birthdate: AWSDate
+  createdAt: AWSDateTime
+  orders: [Order] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+enum UserRole {
+  CUSTOMER
+  STAFF
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+type Order @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  userId: ID! @index(name: "byUser")
+  status: OrderStatus!
+  paymentStatus: PaymentStatus!
+  paymentMethod: PaymentMethod!
+  totalPrice: Float!
+  takeoutMethod: TakeoutMethod!
+  pickupTime: AWSDateTime
+  createdAt: AWSDateTime
+  user: User @belongsTo(fields: ["userId"])
+  items: [OrderItem] @hasMany(indexName: "byOrder", fields: ["id"])
+}
+
+enum TakeoutMethod {
+  BAG
+  GIFT_WRAP
+  NONE
+}
+
+enum OrderStatus {
+  PENDING
+  PREPARING
+  READY
+  COMPLETED
+  CANCELED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT_CARD
+  MOBILE_PAYMENT
+}
+
+type OrderItem @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  orderId: ID! @index(name: "byOrder")
+  menuItemId: ID! @index(name: "byMenuItem")
+  quantity: Int!
+  priceAtOrder: Float!
+  riceSize: String
+  gram: Int
+  sauce: String
+  order: Order @belongsTo(fields: ["orderId"])
+  menuItem: MenuItem @belongsTo(fields: ["menuItemId"])
+  toppings: [OrderTopping] @hasMany(indexName: "byOrderItem", fields: ["id"])
+}
+
+type OrderTopping @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  orderItemId: ID! @index(name: "byOrderItem")
+  toppingId: ID! @index(name: "byTopping")
+  orderItem: OrderItem @belongsTo(fields: ["orderItemId"])
+  topping: Topping @belongsTo(fields: ["toppingId"])
+}
+
+type MenuItem @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  description: String
+  price: Float!
+  categoryId: ID! @index(name: "byCategory")
+  isSeasonal: Boolean
+  isTakeout: Boolean
+  imageUrl: String
+  riceSizeOptions: AWSJSON
+  gramOptions: AWSJSON
+  sauceOptions: AWSJSON
+  allergenInfo: String
+  createdAt: AWSDateTime
+  category: MenuCategory @belongsTo(fields: ["categoryId"])
+  orderItems: [OrderItem] @hasMany(indexName: "byMenuItem", fields: ["id"])
+}
+
+type MenuCategory @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  items: [MenuItem] @hasMany(indexName: "byCategory", fields: ["id"])
+}
+
+type Topping @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  name: String!
+  price: Float!
+  imageUrl: String
+  orderToppings: [OrderTopping] @hasMany(indexName: "byTopping", fields: ["id"])
+}
+
+type News @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  title: String!
+  content: String
+  imageUrl: String
+  publishedAt: AWSDateTime
+  isPublished: Boolean!
+}

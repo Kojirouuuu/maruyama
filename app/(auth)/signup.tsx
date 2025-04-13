@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SignUpScreen() {
   const router = useRouter();
-  const { signUp, loading, error } = useAuthStore();
+  const { signUp, setEmailForVerification, loading, error } = useAuthStore();
   const insets = useSafeAreaInsets();
   const styles = createCommonStyles(insets);
   const [email, setEmail] = useState("");
@@ -21,7 +21,8 @@ export default function SignUpScreen() {
 
   const handleSignUp = async () => {
     await signUp(email, password);
-    router.replace("/(auth)/login");
+    setEmailForVerification(email);
+    router.replace("/(auth)/confirm");
   };
 
   return (

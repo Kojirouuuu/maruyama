@@ -28,8 +28,8 @@ export default function MyPage() {
   }
 
   return (
-    <View>
-      <Text>マイページ</Text>
+    <View style={styles(isDark).container}>
+      <Text style={styles(isDark).title}>マイページ</Text>
     </View>
   );
 }
@@ -44,9 +44,11 @@ const styles = (isDark: boolean) =>
       alignItems: "center",
     },
     title: {
+      textAlign: "center",
+      justifyContent: "center",
       fontFamily: "NotoSansJP-Bold",
       fontSize: 24,
-      color: "#fff",
+      color: isDark ? "#fff" : "#000",
       marginBottom: 16,
     },
     description: {
