@@ -8,6 +8,7 @@ import {
   useColorScheme,
   Image,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -136,7 +137,7 @@ export default function AddMenuScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.formContainer}>
         <Text style={styles.formTitle}>メニュー追加</Text>
 
@@ -255,6 +256,6 @@ export default function AddMenuScreen() {
           )}
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
