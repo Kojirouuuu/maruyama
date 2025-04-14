@@ -28,70 +28,57 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.authCard}>
-        <Text style={[styles.sectionTitle, { marginBottom: 40, color: "red" }]}>
-          ログイン
-        </Text>
-        <TextInput
-          style={[
-            styles.textPrimary,
-            {
-              backgroundColor: styles.card.backgroundColor,
-              padding: 16,
-              borderRadius: 8,
-              marginBottom: 16,
-              borderWidth: 1,
-              borderColor: styles.card.borderColor,
-            },
-          ]}
-          placeholder="メールアドレス"
-          placeholderTextColor={styles.textSecondary.color}
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          style={[
-            styles.textPrimary,
-            {
-              backgroundColor: styles.card.backgroundColor,
-              padding: 16,
-              borderRadius: 8,
-              marginBottom: 16,
-              borderWidth: 1,
-              borderColor: styles.card.borderColor,
-            },
-          ]}
-          placeholder="パスワード"
-          placeholderTextColor={styles.textSecondary.color}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <View style={styles.formContainer}>
+        <Text style={styles.formTitle}>ログイン</Text>
+
+        <View style={styles.formGroup}>
+          <Text style={styles.formLabel}>メールアドレス</Text>
+          <TextInput
+            style={styles.formInput}
+            placeholder="example@example.com"
+            placeholderTextColor={styles.formInputPlaceholder.color}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={styles.formGroup}>
+          <Text style={styles.formLabel}>パスワード</Text>
+          <TextInput
+            style={styles.formInput}
+            placeholder="パスワードを入力"
+            placeholderTextColor={styles.formInputPlaceholder.color}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity
+          style={[styles.formButton, loading && styles.formButtonDisabled]}
+          onPress={handleLogin}
+          disabled={loading}
+        >
           {loading ? (
-            <ActivityIndicator size="small" color={styles.textPrimary.color} />
+            <ActivityIndicator
+              size="small"
+              color={styles.formButtonText.color}
+            />
           ) : (
-            <Text
-              style={[
-                styles.textPrimary,
-                { color: styles.card.backgroundColor },
-              ]}
-            >
-              ログイン
-            </Text>
+            <Text style={styles.formButtonText}>ログイン</Text>
           )}
         </TouchableOpacity>
-        <Text style={styles.textSecondary}>
+
+        <Text style={styles.formHelpText}>
           アカウントをお持ちでない方：
-          <Link href="/(auth)/signup">新規登録（無料）</Link>
+          <Link href="/(auth)/signup" style={styles.formLink}>
+            新規登録（無料）
+          </Link>
         </Text>
-        {error && (
-          <Text
-            style={[styles.textSecondary, { marginTop: 16, color: "#ff4444" }]}
-          >
-            {error}
-          </Text>
-        )}
+
+        {error && <Text style={styles.formError}>{error}</Text>}
       </View>
     </View>
   );

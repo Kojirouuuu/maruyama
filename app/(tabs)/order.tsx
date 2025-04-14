@@ -5,12 +5,26 @@ import { ToppingSelector } from "@/components/form/ToppingSelector";
 import { useState } from "react";
 import { useOrder } from "@/hooks/useOrder";
 import { RiceSize, Sauce, Topping } from "@/types/order";
+import { useToppings } from "@/hooks/useToppings";
 
 export default function OrderScreen() {
   const [riceSize, setRiceSize] = useState<RiceSize>("medium");
   const [sauce, setSauce] = useState<Sauce>("none");
-  const [toppings, setToppings] = useState<Topping[]>([]);
   const { submitOrder, isLoading } = useOrder();
+  const {
+    toppings: allToppings,
+    loading: toppingsLoading,
+    error: toppingsError,
+  } = useToppings();
+  const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
+
+  if (toppingsLoading) {
+    return <Text>トッピングを読み込んでいます...</Text>;
+  }
+
+  if (toppingsError) {
+    return <Text>トッピングの読み込みに失敗しました</Text>;
+  }
 
   return (
     <ScrollView className="p-4 bg-white">
@@ -18,11 +32,14 @@ export default function OrderScreen() {
 
       <RiceSizeSelector selected={riceSize} onSelect={setRiceSize} />
       <SauceSelector selected={sauce} onSelect={setSauce} />
-      <ToppingSelector selected={toppings} onSelect={setToppings} />
-
+      <ToppingSelector
+        toppings={allToppings}
+        selected={selectedToppings}
+        onChange={setSelectedToppings}
+      />
       <Button
         title={isLoading ? "注文中..." : "注文する"}
-        onPress={() => submitOrder(riceSize, sauce, toppings)}
+        onPress={() => submitOrder(riceSize, sauce, selectedToppings)}
         disabled={isLoading}
       />
     </ScrollView>

@@ -5,18 +5,20 @@ import {
   signOutFromCognito,
   confirmSignUpWithCognito,
   resendConfirmationCode,
+  getAdminStatus,
 } from "@/lib/aws/auth";
 type AuthStore = {
   user: any;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
-
+  isAdmin: boolean;
   //　認証機能
   signUp: (email: string, password: string) => Promise<void>
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-
+  getAdminStatus: () => Promise<boolean>;
+  
   // 確認コード入力用
   emailForVerification: string | null;
   setEmailForVerification: (email: string) => void;
@@ -30,14 +32,20 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   loading: false,
   error: null,
   emailForVerification: null,
+  isAdmin: false,
 
   setEmailForVerification: (email: string) => set({ emailForVerification: email}),
 
   login: async (email: string, password: string) => {
     set( { loading: true, error: null});
     try {
+      await signOutFromCognito();
+      
       const user = await signInWithCognito(email,password)
       set({ user: user, isAuthenticated: true, loading: false});
+
+      const isAdmin = await getAdminStatus();
+      set({ isAdmin });
     } catch (err: unknown) {
       if (err instanceof Error) {
         set({ error: err.message, loading: false });
@@ -64,7 +72,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     set({ loading: true, error: null });
     try {
       await signOutFromCognito();
-      set({ user: null, isAuthenticated: false, loading: false });
+      set({ user: null, isAuthenticated: false, loading: false, isAdmin: false });
     } catch (err: unknown) {
       if (err instanceof Error) {
         set({ error: err.message, loading: false });
@@ -105,6 +113,23 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       } else {
         
       }
+    }
+  },
+  getAdminStatus: async () => {
+    if (!get().user) {
+      throw new Error("ログインしていません")
+    }
+    try {
+      const isAdmin = await getAdminStatus();
+      set({ isAdmin });
+      return isAdmin;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        set({ error: err.message, loading: false});
+      } else {
+        set({ error: "An unknown error occurred", loading: false});
+      }
+      return false;
     }
   }
 }));

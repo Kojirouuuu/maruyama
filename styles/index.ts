@@ -16,7 +16,7 @@ export const colors = (isDark: boolean) => {
     background: '#121212',
     border: '#2A2A2A',
   text: {
-      primary: isDark ? "#fff" : "#fff",
+      primary: isDark ? "#fff" : "#000",
       secondary: "#8B8B8B",
     },
   };
@@ -49,8 +49,81 @@ export const createCommonStyles = (insets: Insets) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: isDark ? '#000' : '#fff',
+      backgroundColor: isDark ? "#121212" : "#fff",
     },
+    formContainer: {
+      width: "100%",
+      maxWidth: 800,
+      alignSelf: "center" as const,
+      padding: spacing.large,
+      backgroundColor: isDark ? colors(isDark).background : colors(isDark).white,
+      flex: 1,
+    } as ViewStyle,
+    formTitle: {
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.fontSize.xxlarge,
+      color: colors(isDark).text.primary,
+      marginBottom: spacing.large * 2,
+      textAlign: "center" as const,
+    } as TextStyle,
+    formGroup: {
+      marginBottom: spacing.large,
+    } as ViewStyle,
+    formLabel: {
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.medium,
+      color: colors(isDark).text.primary,
+      marginBottom: spacing.small,
+    } as TextStyle,
+    formInput: {
+      backgroundColor: isDark ? colors(isDark).secondary : colors(isDark).white,
+      borderWidth: 1,
+      borderColor: colors(isDark).border,
+      borderRadius: 8,
+      padding: spacing.medium,
+      color: colors(isDark).text.primary,
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.medium,
+    } as TextStyle,
+    formInputPlaceholder: {
+      color: colors(isDark).text.secondary,
+    } as TextStyle,
+    formTextarea: {
+      height: 100,
+      textAlignVertical: 'top' as const,
+    } as TextStyle,
+    formButton: {
+      backgroundColor: colors(isDark).primary1,
+      paddingVertical: spacing.medium,
+      paddingHorizontal: spacing.large,
+      borderRadius: 8,
+      alignItems: "center" as const,
+      marginBottom: spacing.medium,
+    } as ViewStyle,
+    formButtonText: {
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.fontSize.medium,
+      color: colors(isDark).text.primary,
+    } as TextStyle,
+    formButtonDisabled: {
+      opacity: 0.5,
+    } as ViewStyle,
+    formError: {
+      color: "#ff4444",
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.small,
+      marginTop: spacing.small,
+    } as TextStyle,
+    formHelpText: {
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.small,
+      color: colors(isDark).text.secondary,
+      marginTop: spacing.small,
+    } as TextStyle,
+    formLink: {
+      color: colors(isDark).primary1,
+      textDecorationLine: "underline" as const,
+    } as TextStyle,
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -268,5 +341,67 @@ export const createCommonStyles = (insets: Insets) => {
       marginHorizontal: spacing.large,
       marginTop: spacing.large,
     } as ViewStyle,
+    authForm: {
+      width: "100%",
+      maxWidth: 400,
+      alignSelf: "center" as const,
+      padding: spacing.large,
+      borderRadius: 16,
+      backgroundColor: colors(isDark).secondary,
+      borderWidth: 1,
+      borderColor: colors(isDark).border,
+    } as ViewStyle,
+    authTitle: {
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.fontSize.xxlarge,
+      color: colors(isDark).text.primary,
+      marginBottom: spacing.large * 2,
+      textAlign: "center" as const,
+    } as TextStyle,
+    authInput: {
+      backgroundColor: isDark ? colors(isDark).background : colors(isDark).white,
+      borderWidth: 1,
+      borderColor: colors(isDark).border,
+      borderRadius: 8,
+      padding: spacing.medium,
+      marginBottom: spacing.medium,
+      color: colors(isDark).text.primary,
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.medium,
+    } as TextStyle,
+    authInputPlaceholder: {
+      color: colors(isDark).text.secondary,
+    } as TextStyle,
+    authButton: {
+      backgroundColor: colors(isDark).primary1,
+      paddingVertical: spacing.medium,
+      paddingHorizontal: spacing.large,
+      borderRadius: 8,
+      alignItems: "center" as const,
+      marginBottom: spacing.medium,
+    } as ViewStyle,
+    authButtonText: {
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.fontSize.medium,
+      color: colors(isDark).text.primary,
+    } as TextStyle,
+    authLink: {
+      color: colors(isDark).primary1,
+      textDecorationLine: "underline" as const,
+    } as TextStyle,
+    authError: {
+      color: "#ff4444",
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.small,
+      marginTop: spacing.medium,
+      textAlign: "center" as const,
+    } as TextStyle,
+    authText: {
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSize.small,
+      color: colors(isDark).text.secondary,
+      textAlign: "center" as const,
+      marginTop: spacing.medium,
+    } as TextStyle,
   });
 };

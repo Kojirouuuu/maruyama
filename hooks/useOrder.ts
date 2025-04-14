@@ -13,7 +13,7 @@ export function useOrder() {
   const submitOrder = async (
     riceSize: RiceSize,
     sauce: Sauce,
-    toppings: Topping[]
+    selectedToppings: Topping[]
   ) => {
     try {
       setIsLoading(true);
@@ -41,7 +41,7 @@ export function useOrder() {
             riceSize: item.riceSize,
             gram: item.gram,
             sauce: item.sauce,
-            toppings: item.toppings.map((t: Topping) => ({ toppingId: t.id })),
+            toppings: selectedToppings.map((t) => ({ toppingId: t.id })),
           })
         ),
       };

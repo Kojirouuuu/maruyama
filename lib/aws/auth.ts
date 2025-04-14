@@ -50,7 +50,7 @@ export const signInWithCognito = async (email: string, password: string) => {
 
 export const signOutFromCognito = async () => {
   try {
-    await signOut(); // Amplify Auth の signOut を呼び出す
+    await signOut({ global: true }); // Amplify Auth の signOut を呼び出す
     console.log("Signed out successfully");
   } catch (error) {
     if (error instanceof Error) {
@@ -76,6 +76,24 @@ export const resendConfirmationCode = async (email: string) => {
   try {
     await resendSignUpCode({ username: email });
     console.log("Confirmation code resent");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+    throw new Error("An unknown error occurred");
+  }
+};
+export const getAdminStatus = async () => {
+  try {
+    const { userId } = await getCurrentUser();
+    const tokens = await fetchAuthSession();
+    const session = tokens.tokens;
+
+    const cognitoGroups = session?.accessToken.payload[
+      "cognito:groups"
+    ] as string[];
+    const isAdmin = cognitoGroups?.includes("admin");
+    return isAdmin;
   } catch (err: unknown) {
     if (err instanceof Error) {
       throw new Error(err.message);

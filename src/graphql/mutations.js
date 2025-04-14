@@ -207,7 +207,7 @@ export const createOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -261,7 +261,7 @@ export const updateOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -315,7 +315,7 @@ export const deleteOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -458,7 +458,7 @@ export const createMenuItem = /* GraphQL */ `
       categoryId
       isSeasonal
       isTakeout
-      imageUrl
+      imagePath
       riceSizeOptions
       gramOptions
       sauceOptions
@@ -493,7 +493,7 @@ export const updateMenuItem = /* GraphQL */ `
       categoryId
       isSeasonal
       isTakeout
-      imageUrl
+      imagePath
       riceSizeOptions
       gramOptions
       sauceOptions
@@ -528,7 +528,7 @@ export const deleteMenuItem = /* GraphQL */ `
       categoryId
       isSeasonal
       isTakeout
-      imageUrl
+      imagePath
       riceSizeOptions
       gramOptions
       sauceOptions

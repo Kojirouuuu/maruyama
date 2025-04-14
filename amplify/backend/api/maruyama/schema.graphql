@@ -86,7 +86,9 @@ type OrderTopping @model @auth(rules: [{ allow: public }]) {
   topping: Topping @belongsTo(fields: ["toppingId"])
 }
 
-type MenuItem @model @auth(rules: [{ allow: public }]) {
+type MenuItem
+  @model
+  @auth(rules: [{ allow: public, operations: [create, update, delete] }]) {
   id: ID!
   name: String!
   description: String
@@ -94,7 +96,7 @@ type MenuItem @model @auth(rules: [{ allow: public }]) {
   categoryId: ID! @index(name: "byCategory")
   isSeasonal: Boolean
   isTakeout: Boolean
-  imageUrl: String
+  imagePath: String
   riceSizeOptions: AWSJSON
   gramOptions: AWSJSON
   sauceOptions: AWSJSON

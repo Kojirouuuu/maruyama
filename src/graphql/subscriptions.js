@@ -1,6 +1,102 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateMenuItem = /* GraphQL */ `
+  subscription OnCreateMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
+    onCreateMenuItem(filter: $filter) {
+      id
+      name
+      description
+      price
+      categoryId
+      isSeasonal
+      isTakeout
+      imagePath
+      riceSizeOptions
+      gramOptions
+      sauceOptions
+      allergenInfo
+      createdAt
+      category {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      orderItems {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMenuItem = /* GraphQL */ `
+  subscription OnUpdateMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
+    onUpdateMenuItem(filter: $filter) {
+      id
+      name
+      description
+      price
+      categoryId
+      isSeasonal
+      isTakeout
+      imagePath
+      riceSizeOptions
+      gramOptions
+      sauceOptions
+      allergenInfo
+      createdAt
+      category {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      orderItems {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMenuItem = /* GraphQL */ `
+  subscription OnDeleteMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
+    onDeleteMenuItem(filter: $filter) {
+      id
+      name
+      description
+      price
+      categoryId
+      isSeasonal
+      isTakeout
+      imagePath
+      riceSizeOptions
+      gramOptions
+      sauceOptions
+      allergenInfo
+      createdAt
+      category {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      orderItems {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     onCreateUser(filter: $filter) {
@@ -188,7 +284,7 @@ export const onCreateOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -241,7 +337,7 @@ export const onUpdateOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -294,7 +390,7 @@ export const onDeleteOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -416,102 +512,6 @@ export const onDeleteOrderTopping = /* GraphQL */ `
         __typename
       }
       createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateMenuItem = /* GraphQL */ `
-  subscription OnCreateMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
-    onCreateMenuItem(filter: $filter) {
-      id
-      name
-      description
-      price
-      categoryId
-      isSeasonal
-      isTakeout
-      imageUrl
-      riceSizeOptions
-      gramOptions
-      sauceOptions
-      allergenInfo
-      createdAt
-      category {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
-      orderItems {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateMenuItem = /* GraphQL */ `
-  subscription OnUpdateMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
-    onUpdateMenuItem(filter: $filter) {
-      id
-      name
-      description
-      price
-      categoryId
-      isSeasonal
-      isTakeout
-      imageUrl
-      riceSizeOptions
-      gramOptions
-      sauceOptions
-      allergenInfo
-      createdAt
-      category {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
-      orderItems {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteMenuItem = /* GraphQL */ `
-  subscription OnDeleteMenuItem($filter: ModelSubscriptionMenuItemFilterInput) {
-    onDeleteMenuItem(filter: $filter) {
-      id
-      name
-      description
-      price
-      categoryId
-      isSeasonal
-      isTakeout
-      imageUrl
-      riceSizeOptions
-      gramOptions
-      sauceOptions
-      allergenInfo
-      createdAt
-      category {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
-      orderItems {
-        nextToken
-        __typename
-      }
       updatedAt
       __typename
     }

@@ -1,6 +1,104 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getMenuItem = /* GraphQL */ `
+  query GetMenuItem($id: ID!) {
+    getMenuItem(id: $id) {
+      id
+      name
+      description
+      price
+      categoryId
+      isSeasonal
+      isTakeout
+      imagePath
+      riceSizeOptions
+      gramOptions
+      sauceOptions
+      allergenInfo
+      createdAt
+      category {
+        id
+        name
+        createdAt
+        updatedAt
+        __typename
+      }
+      orderItems {
+        nextToken
+        __typename
+      }
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listMenuItems = /* GraphQL */ `
+  query ListMenuItems(
+    $filter: ModelMenuItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMenuItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        price
+        categoryId
+        isSeasonal
+        isTakeout
+        imagePath
+        riceSizeOptions
+        gramOptions
+        sauceOptions
+        allergenInfo
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const menuItemsByCategoryId = /* GraphQL */ `
+  query MenuItemsByCategoryId(
+    $categoryId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelMenuItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    menuItemsByCategoryId(
+      categoryId: $categoryId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        price
+        categoryId
+        isSeasonal
+        isTakeout
+        imagePath
+        riceSizeOptions
+        gramOptions
+        sauceOptions
+        allergenInfo
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -165,7 +263,7 @@ export const getOrderItem = /* GraphQL */ `
         categoryId
         isSeasonal
         isTakeout
-        imageUrl
+        imagePath
         riceSizeOptions
         gramOptions
         sauceOptions
@@ -376,104 +474,6 @@ export const orderToppingsByToppingId = /* GraphQL */ `
         id
         orderItemId
         toppingId
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getMenuItem = /* GraphQL */ `
-  query GetMenuItem($id: ID!) {
-    getMenuItem(id: $id) {
-      id
-      name
-      description
-      price
-      categoryId
-      isSeasonal
-      isTakeout
-      imageUrl
-      riceSizeOptions
-      gramOptions
-      sauceOptions
-      allergenInfo
-      createdAt
-      category {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
-      orderItems {
-        nextToken
-        __typename
-      }
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listMenuItems = /* GraphQL */ `
-  query ListMenuItems(
-    $filter: ModelMenuItemFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listMenuItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        price
-        categoryId
-        isSeasonal
-        isTakeout
-        imageUrl
-        riceSizeOptions
-        gramOptions
-        sauceOptions
-        allergenInfo
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const menuItemsByCategoryId = /* GraphQL */ `
-  query MenuItemsByCategoryId(
-    $categoryId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelMenuItemFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    menuItemsByCategoryId(
-      categoryId: $categoryId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        description
-        price
-        categoryId
-        isSeasonal
-        isTakeout
-        imageUrl
-        riceSizeOptions
-        gramOptions
-        sauceOptions
-        allergenInfo
         createdAt
         updatedAt
         __typename
